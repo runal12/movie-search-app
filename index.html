@@ -13,13 +13,20 @@
        
         <!-- Search Bar and Genre Selection -->
         <div class="search-bar">
-            <input type="text" id="movie-name" placeholder="Search for a movie or series..." oninput="searchMovies()">
+            <div class="tabs" role="tablist" aria-label="Search mode">
+                <button id="tab-titles" class="tab active" onclick="setSearchMode('titles')" role="tab" aria-selected="true">Titles</button>
+                <button id="tab-people" class="tab" onclick="setSearchMode('people')" role="tab" aria-selected="false">People</button>
+            </div>
+            <div class="search-input-wrap">
+                <input type="text" id="movie-name" placeholder="Search..." oninput="debouncedSearchMovies()">
+                <div id="suggestions" class="suggestions" style="display:none;"></div>
+            </div>
             <button onclick="searchMovies()">Search</button>
         </div>
 
 
         <div class="genre-selection">
-            <label for="genres">Select Genre:</label>
+            <label for="genres">Genre:</label>
             <select id="genres" onchange="searchMovies()"> <!-- Added onchange event -->
                 <option value="">--All Genres--</option>
                 <option value="28">Action</option>
@@ -36,14 +43,25 @@
                 <option value="99">Documentary</option>
                 <option value="10751">Family</option>
             </select>
+            <label for="content-type" style="margin-left:12px;">Type:</label>
+            <select id="content-type" onchange="searchMovies()">
+                <option value="both">--All Types--</option>
+                <option value="movie">Movies</option>
+                <option value="tv">Web Series</option>
+            </select>
+        </div>
+         
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading" aria-live="polite" aria-busy="false" style="display:none;">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading…</div>
         </div>
 
-        <select id="content-type">
-            <option value="movie">Movies</option>
-            <option value="tv">Web Series</option>
-            <option value="both">Movies and Web Series</option>
-        </select>
-         
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" style="display:none;">No results found. Try a different search or genre.</div>
+
+        
+
         <!-- Movie Results -->
         <div id="movie-results" class="movie-results"></div>
         
@@ -63,6 +81,23 @@
             <p id="movie-rating"></p>
             <p id="movie-synopsis"></p>
             <p id="movie-cast"></p> <!-- Add this for the cast -->
+            <div id="trailers-section" style="display:none;">
+                <h3>Trailers</h3>
+                <div id="trailer-container" class="trailer" style="display:none;">
+                    <iframe id="trailer-frame" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div id="trailers-list" class="trailers-list"></div>
+            </div>
+
+            <div id="seasons-section" style="display:none;">
+                <h3>Seasons</h3>
+                <div id="seasons-container" class="seasons-container"></div>
+            </div>
+
+            <div id="collection-section" style="display:none;">
+                <h3>Collection</h3>
+                <div id="collection-container" class="collection-container"></div>
+            </div>
         </div>
     </div>
     
