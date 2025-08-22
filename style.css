@@ -27,6 +27,81 @@ h1 {
     margin-bottom: 20px;
 }
 
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-right: 12px;
+}
+
+.tab {
+    padding: 8px 12px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.tab.active {
+    background: #ff6f61;
+    border-color: #ff6f61;
+    box-shadow: 0 0 0 3px rgba(255, 111, 97, 0.3);
+}
+
+.tabs .tab {
+    position: relative;
+}
+
+.tabs .tab.active::after {
+    content: '';
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    bottom: -6px;
+    height: 3px;
+    border-radius: 3px;
+    background: #ff6f61;
+}
+
+.search-input-wrap {
+    position: relative;
+}
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #2a2a2a;
+    border-radius: 8px;
+    margin-top: 6px;
+    z-index: 1000;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background: #3a3a3a;
+}
+
+.suggestion-item img {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    object-fit: cover;
+    background: #444;
+}
+
 .search-bar input {
     padding: 10px;
     width: 300px;
@@ -74,6 +149,15 @@ h1 {
     transform: scale(1.05);
 }
 
+#back-to-popup button {
+    padding: 8px 14px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
 .genre-selection {
     display: flex;
     justify-content: center;
@@ -90,12 +174,16 @@ h1 {
     font-size: 1em;
 }
 
+.genre-selection label {
+    align-self: center;
+}
+
 .movie-results {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
-    animation: fadeIn 1s ease-in-out;
+    animation: fadeIn 0.25s ease-in-out;
 }
 
 .movie-card {
@@ -107,6 +195,23 @@ h1 {
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card .hover-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: #fff;
+    font-size: 0.9em;
+    transform: translateY(100%);
+    transition: transform 0.2s ease;
+}
+
+.movie-card:hover .hover-overlay {
+    transform: translateY(0%);
 }
 
 .movie-card:hover {
@@ -126,6 +231,76 @@ h1 {
     background-color: #444;
     font-size: 1.2em;
     font-weight: bold;
+}
+
+.rating-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 4px 6px;
+    border-radius: 6px;
+    font-size: 0.85em;
+}
+
+.skeleton-card {
+    width: 200px;
+    height: 340px;
+    background: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.skeleton-shimmer {
+    position: absolute;
+    top: 0;
+    left: -150px;
+    height: 100%;
+    width: 150px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    animation: shimmer 1s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(350px); }
+}
+
+.focus-visible:focus {
+    outline: 3px solid #ff6f61;
+    outline-offset: 2px;
+}
+
+/* Loading and Empty states */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    pointer-events: none; /* do not block clicks beneath */
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #ff6f61;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.loading-text {
+    margin-top: 10px;
+    color: #ccc;
+}
+
+.empty-state {
+    text-align: center;
+    color: #bbb;
+    margin: 20px 0;
 }
 
 .popup {
@@ -162,6 +337,96 @@ h1 {
     margin: 10px 0;
 }
 
+.trailer {
+    margin-top: 15px;
+}
+
+.trailer iframe {
+    width: 100%;
+    height: 315px;
+    border: none;
+    border-radius: 8px;
+}
+
+.trailers-list {
+    margin-top: 10px;
+}
+
+.trailers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.trailers-list button {
+    padding: 8px 12px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.trailers-list button.active {
+    background-color: #ff6f61;
+}
+
+.seasons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.season-card {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.season-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.episodes-list {
+    margin-top: 8px;
+}
+
+.episode-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 8px;
+    background-color: #333;
+    border-radius: 6px;
+    margin-top: 6px;
+}
+
+.collection-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+}
+
+.collection-card {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.collection-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.collection-card .title {
+    padding: 8px;
+    text-align: center;
+}
+
 .close-popup {
     position: absolute;
     top: 10px;
@@ -184,6 +449,10 @@ h1 {
 @keyframes slideIn {
     from { transform: translateY(-20px); }
     to { transform: translateY(0); }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* Dropdown styling */
@@ -240,21 +509,7 @@ h1 {
 /* Your existing CSS here */
 
 /* Updated dropdown styling */
-#content-type {
-    padding: 12px 40px 12px 15px;
-    width: 250px;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    appearance: none;
-    outline: none;
-    cursor: pointer;
-    position: relative;
-    top: -1cm; /* Move the dropdown 1cm up */
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
+/* Remove previous offset so it aligns with Genre */
 
 /* Arrow animation */
 #content-type::after {
@@ -284,4 +539,108 @@ h1 {
 @keyframes fadeInDropdown {
     0% { opacity: 0; }
     100% { opacity: 1; }
+}
+
+/* Person Page Styles */
+.header-nav {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.back-link {
+    color: #ff6f61;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 2px solid #ff6f61;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.back-link:hover {
+    background: #ff6f61;
+    color: white;
+}
+
+
+
+.person-info {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.person-header {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.person-header img {
+    width: 150px;
+    height: 225px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.person-details {
+    flex: 1;
+}
+
+.person-details h2 {
+    margin: 0 0 12px 0;
+    color: #fff;
+    font-size: 1.8em;
+}
+
+.person-details p {
+    color: #ccc;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+}
+
+.person-stats {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.person-stats div {
+    background: rgba(255, 111, 97, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #ff6f61;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* Responsive adjustments for person page */
+@media (max-width: 768px) {
+    .person-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .person-header img {
+        width: 120px;
+        height: 180px;
+        margin: 0 auto;
+    }
+    
+    .header-nav {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
 }
