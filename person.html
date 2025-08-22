@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Person Details - Movie & Web Series Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header-nav">
+            <a href="index.html" class="back-link">← Back to Search</a>
+            <h1 id="person-name">Person Details</h1>
+        </div>
+        
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading" aria-live="polite" aria-busy="false" style="display:none;">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading person details…</div>
+        </div>
+
+        <!-- Person Info -->
+        <div id="person-info" class="person-info" style="display:none;">
+            <div class="person-header">
+                <img id="person-photo" src="" alt="Person Photo">
+                <div class="person-details">
+                    <h2 id="person-title"></h2>
+                    <p id="person-bio"></p>
+                    <div id="person-stats"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Credits Results -->
+        <div id="movie-results" class="movie-results"></div>
+        
+        <!-- Pagination Controls -->
+        <div class="pagination-controls">
+            <button id="prev-btn" onclick="loadPreviousMovies()">Previous</button>
+            <button id="load-more-btn" onclick="loadMoreMovies()">Load More</button>
+        </div>
+    </div>
+
+    <!-- Movie Details Popup -->
+    <div id="movie-popup" class="popup">
+        <div class="popup-content">
+            <span id="close-popup" class="close-btn">&times;</span>
+            <img id="movie-poster" src="" alt="Movie Poster">
+            <h2 id="movie-title"></h2>
+            <p id="movie-rating"></p>
+            <p id="movie-synopsis"></p>
+            <p id="movie-cast"></p>
+            <div id="trailers-section" style="display:none;">
+                <h3>Trailers</h3>
+                <div id="trailer-container" class="trailer" style="display:none;">
+                    <iframe id="trailer-frame" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div id="trailers-list" class="trailers-list"></div>
+            </div>
+
+            <div id="seasons-section" style="display:none;">
+                <h3>Seasons</h3>
+                <div id="seasons-container" class="seasons-container"></div>
+            </div>
+
+            <div id="collection-section" style="display:none;">
+                <h3>Collection</h3>
+                <div id="collection-container" class="collection-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize person page when loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initPersonPage();
+        });
+    </script>
+</body>
+</html>
